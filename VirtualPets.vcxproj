@@ -135,6 +135,7 @@
     <ClCompile Include="Source Files\shaderClass.cpp" />
     <ClCompile Include="Source Files\VAO.cpp" />
     <ClCompile Include="Source Files\VBO.cpp" />
+    <ClCompile Include="stb_image_impl.cpp" />
     <ClCompile Include="textures.cpp" />
     <ClCompile Include="windowHandler.cpp" />
   </ItemGroup>
