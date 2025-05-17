@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source Files\EBO.cpp" />
     <ClCompile Include="Source Files\shaderClass.cpp" />
@@ -144,6 +145,7 @@
     <None Include="Resources Files\default.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Resources Files\EBO.h" />
     <ClInclude Include="Resources Files\shaderClass.h" />
     <ClInclude Include="Resources Files\VAO.h" />

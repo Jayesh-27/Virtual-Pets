@@ -39,6 +39,9 @@
     <ClCompile Include="stb_image_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources Files\default.frag">
@@ -65,6 +68,9 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="textures.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
