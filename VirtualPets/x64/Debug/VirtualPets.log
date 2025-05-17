@@ -1,6 +1,5 @@
-﻿  GameObject.cpp
-  main.cpp
-  textures.cpp
+﻿  main.cpp
+  windowHandler.cpp
   Generating Code...
   VirtualPets.vcxproj -> C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\x64\Debug\VirtualPets.exe
   'pwsh.exe' is not recognized as an internal or external command,

@@ -11,16 +11,17 @@
 class Object
 {
 public:
+    Shader shaderProgram;
+
     // Define vertices for a textured quad
     static float vertices[8];
     static float texturePos[8];
-    static unsigned int indices[6];
-
+    static unsigned int indices[6];    
     VAO VAO1;
     VBO VBO1;
     VBO VBO2;
     EBO EBO1;
-
+    Object();
 	//void Transform();                 Future Position, Scale, Rotation
     void ShaderHandling();
     void VBO_VAO_EBO();

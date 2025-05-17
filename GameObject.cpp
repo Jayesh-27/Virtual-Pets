@@ -20,10 +20,15 @@ unsigned int Object::indices[] = {
     2, 3, 0   // second triangle
 };
 
+Object::Object() {
+    Object::ShaderHandling();
+    Object::VBO_VAO_EBO();
+};
+
 void Object::ShaderHandling()
 {
-    Shader shaderProgram("C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.vert",
-                         "C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.frag");
+    shaderProgram = Shader("C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.vert",
+        "C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.frag");
     shaderProgram.Activate();
     
 
@@ -55,7 +60,6 @@ void Object::ShaderHandling()
 
 void Object::VBO_VAO_EBO()
 {
-    VAO VAO1;   //pos
     VAO1.Bind();
 
     VBO VBO1(vertices, sizeof(vertices));
@@ -66,14 +70,20 @@ void Object::VBO_VAO_EBO()
     VAO1.LinkVBO(VBO2, 1);
 
     EBO1.Bind();
+
     VAO1.Unbind();
     VBO1.Unbind();
     EBO1.Unbind();
+
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR)
+        std::cout << "GL ERRORRRRRRR: " << err << std::endl;
+
 }
 
 void Object::mainLoopThings()
 {
-
+    VAO1.Bind();
 }
 
 void Object::afterMainLoopThings()
@@ -82,6 +92,5 @@ void Object::afterMainLoopThings()
     VBO1.Delete();
     VBO2.Delete();
     EBO1.Delete();
-    shaderProgram.Delete();
-
+    Object::shaderProgram.Delete();
 }

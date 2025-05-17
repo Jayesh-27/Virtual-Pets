@@ -13,18 +13,14 @@
 int main()
 {
     Window window;
-    if (window.InitializeWindow() != 0) {
-        std::cerr << "Window initialization failed\n";
-        return -1;
-    }
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "Failed to initialize GLAD\n";
-        return -1;
+        glfwTerminate();
     }
 
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
-           
+    Object object1;
     textures texture;
     texture.InitializeTexture();
 
@@ -36,36 +32,10 @@ int main()
     while (!window.WindowShouldClose())
     {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        GLint texLoc = shaderProgram.GetUniformLocation("imageTexture");
-        if (texLoc != -1) {
-            glUniform1i(texLoc, 0);
-        }
-        else {
-            std::cout << "Warning: imageTexture uniform not found in shader" << std::endl;
-        }
-
-        GLint posLoc = shaderProgram.GetUniformLocation("imagePosition");
-        if (posLoc != -1) {
-            glUniform2f(posLoc, 0.0f, 0.0f);
-        }
-        else {
-            std::cout << "Warning: imagePosition uniform not found in shader" << std::endl;
-        }
-
-        GLint scaleLoc = shaderProgram.GetUniformLocation("imageScale");
-        if (scaleLoc != -1) {
-            glUniform2f(scaleLoc, 1.0f, 1.0f);
-        }
-        else {
-            std::cout << "Warning: imageScale uniform not found in shader" << std::endl;
-        }
-        
-        VAO1.Bind();
+        glClear(GL_COLOR_BUFFER_BIT);        
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        
+        object1.mainLoopThings();
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
             std::cout << "GL ERROR: " << err << std::endl;
@@ -73,15 +43,10 @@ int main()
         window.swapBuffer();
         glfwPollEvents();
     }
-
-    VAO1.Delete();
-    VBO1.Delete();
-    VBO2.Delete();
-    EBO1.Delete();
-    shaderProgram.Delete();
     texture.deleteTextures();  
 
     window.DestroyWindow();
+    object1.afterMainLoopThings();
     glfwTerminate();
     return 0;
 }

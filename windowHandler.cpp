@@ -5,12 +5,12 @@
 #include "Window.h"
 
 
-int Window::InitializeWindow()
+Window::Window()
 {
     // Initialize GLFW
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
-        return -1;
+        glfwTerminate();
     }
 
     // Configure GLFW
@@ -22,7 +22,10 @@ int Window::InitializeWindow()
     glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
     glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
 
-    return Window::CreateWindow();
+    if (CreateWindow() != 0) {
+        std::cerr << "Window creation failed\n";
+        glfwTerminate();
+    }
 }
 
 int Window::CreateWindow()
@@ -32,7 +35,7 @@ int Window::CreateWindow()
     if (!window) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();
-        return -1;
+        return -1;  
     }
 
     glfwMakeContextCurrent(window);
