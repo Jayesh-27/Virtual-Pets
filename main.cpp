@@ -8,6 +8,7 @@
 #include "EBO.h"
 #include "Window.h"
 #include "textures.h"
+#include "GameObject.h"
 
 int main()
 {
@@ -23,45 +24,7 @@ int main()
     }
 
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
-
-    // Define vertices for a textured quad
-    float vertices[] = {
-        // positions   // texture coords
-        -0.5f, -0.5f,  // bottom left
-         0.5f, -0.5f,  // bottom right
-         0.5f,  0.5f,  // top right
-        -0.5f,  0.5f  // top left
-    };
-    float texturePos[] = {
-        0.0f, 0.0f,  // bottom left
-        1.0f, 0.0f,  // bottom right
-        1.0f, 1.0f,  // top right
-        0.0f, 1.0f   // top left
-    };
-    unsigned int indices[] = {
-        0, 1, 2,  // first triangle
-        2, 3, 0   // second triangle
-    };
-
-    Shader shaderProgram("C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.vert",
-        "C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.frag");
-
-    VAO VAO1;   //pos
-    VAO1.Bind();
-
-    VBO VBO1(vertices, sizeof(vertices));
-    VBO VBO2(texturePos, sizeof(texturePos));
-    EBO EBO1(indices, sizeof(indices));
-
-    VAO1.LinkVBO(VBO1, 0);  
-    VAO1.LinkVBO(VBO2, 1);  
-
-    
-    EBO1.Bind();
-    VAO1.Unbind();
-    VBO1.Unbind();
-    EBO1.Unbind(); 
-    
+           
     textures texture;
     texture.InitializeTexture();
 
@@ -74,8 +37,6 @@ int main()
     {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        shaderProgram.Activate();
 
         GLint texLoc = shaderProgram.GetUniformLocation("imageTexture");
         if (texLoc != -1) {
