@@ -22,7 +22,7 @@ int Window::InitializeWindow()
     glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
     glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
 
-    return CreateWindow();
+    return Window::CreateWindow();
 }
 
 int Window::CreateWindow()
