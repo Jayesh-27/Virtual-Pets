@@ -70,3 +70,18 @@ void Object::VBO_VAO_EBO()
     VBO1.Unbind();
     EBO1.Unbind();
 }
+
+void Object::mainLoopThings()
+{
+
+}
+
+void Object::afterMainLoopThings()
+{
+    VAO1.Delete();
+    VBO1.Delete();
+    VBO2.Delete();
+    EBO1.Delete();
+    shaderProgram.Delete();
+
+}
