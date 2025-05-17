@@ -1,6 +1,7 @@
 ﻿  main.cpp
-  windowHandler.cpp
+C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\Libraries\include\glad\glad.h(27,1): error C1189: #error:  OpenGL header already included, remove this include, glad already provides it
+  (compiling source file 'main.cpp')
+  
+  textures.cpp
+C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\textures.cpp(3,11): error C2600: 'textures::textures': cannot define a compiler-generated special member function (must be declared in the class first)
   Generating Code...
-  VirtualPets.vcxproj -> C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\x64\Debug\VirtualPets.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.

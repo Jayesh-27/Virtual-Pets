@@ -39,6 +39,11 @@ int Window::CreateWindow()
     }
 
     glfwMakeContextCurrent(window);
+
+    // Configure OpenGL for transparency
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     return 0;
 }
 

@@ -8,7 +8,6 @@ public:
 
     GLFWwindow* window;
     Window();
-    int InitializeWindow();
     int CreateWindow();
     void DestroyWindow();
     bool WindowShouldClose();

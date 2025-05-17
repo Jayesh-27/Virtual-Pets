@@ -1,12 +1,12 @@
 #include <textures.h>
 
-int textures::InitializeTexture()
+textures::textures()
 {
     stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load("C:/Users/jayes/Desktop/Assests/pixelated-BallonwithPenguin.png", &imgWidth, &imgHeight, &nrChannels, 4);
     if (!data) {
         std::cerr << "Failed to load image\n";
-        return -1;
+        glfwTerminate();
     }
 
     std::cout << "Image loaded: " << imgWidth << "x" << imgHeight << " with " << nrChannels << " channels" << std::endl;
@@ -31,13 +31,11 @@ int textures::InitializeTexture()
     GLenum err = glGetError();
     if (err != GL_NO_ERROR) {
         std::cout << "OpenGL texture error: " << err << std::endl;
-        return -1;
+        glfwTerminate();
     }
     // Bind texture to texture unit 0
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture);
-
-    return 0;
 }
 
 void textures::deleteTextures()

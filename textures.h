@@ -12,7 +12,6 @@ public:
     int imgWidth, imgHeight, nrChannels;
     GLuint texture;
 
-    int InitializeTexture();
     void deleteTextures();
     
 };

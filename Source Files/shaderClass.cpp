@@ -22,6 +22,7 @@ std::string get_file_contents(const char* filename)
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {
+    std::cout << "Shader ID: " << ID << std::endl;
     std::string vertexCode;
     std::string fragmentCode;
 

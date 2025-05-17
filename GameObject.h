@@ -8,24 +8,23 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
-class Object
-{
+class Object {
 public:
-    Shader shaderProgram;
-
-    // Define vertices for a textured quad
-    static float vertices[8];
-    static float texturePos[8];
-    static unsigned int indices[6];    
-    VAO VAO1;
-    VBO VBO1;
-    VBO VBO2;
-    EBO EBO1;
     Object();
-	//void Transform();                 Future Position, Scale, Rotation
     void ShaderHandling();
     void VBO_VAO_EBO();
     void mainLoopThings();
     void afterMainLoopThings();
+
+    static float vertices[];
+    static float texturePos[];
+    static unsigned int indices[];
+
+    Shader shaderProgram;
+    VAO VAO1;
+    VBO VBO1;
+    VBO VBO2;
+    EBO EBO1;
 };
+
 #endif

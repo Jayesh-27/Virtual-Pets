@@ -3,6 +3,7 @@
 VAO::VAO()
 {
 	glGenVertexArrays(1, &ID);
+	std::cout << "VAO ID: " << ID << std::endl;
 }
 
 void VAO::LinkVBO(VBO& VBO, GLuint layout)

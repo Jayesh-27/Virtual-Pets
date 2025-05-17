@@ -28,10 +28,35 @@ Object::Object() {
 void Object::ShaderHandling()
 {
     shaderProgram = Shader("C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.vert",
-        "C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.frag");
-    shaderProgram.Activate();
-    
+        "C:\\Users\\jayes\\Desktop\\Virtual Pets\\VirtualPets\\Resources Files\\default.frag");    
+}
 
+void Object::VBO_VAO_EBO()
+{
+    VAO1.Bind();
+
+    VBO1 = VBO(vertices, sizeof(vertices));
+    VBO2 = VBO(texturePos, sizeof(texturePos));
+    EBO1 = EBO(indices, sizeof(indices));
+
+    VAO1.LinkVBO(VBO1, 0);
+    VAO1.LinkVBO(VBO2, 1);
+
+    EBO1.Bind();
+
+    VAO1.Unbind();
+    VBO1.Unbind();
+    EBO1.Unbind();
+
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR)
+        std::cout << "GL ERRORRRRRRR: " << err << std::endl;
+
+}
+
+void Object::mainLoopThings()
+{
+    shaderProgram.Activate();
 
     GLint texLoc = shaderProgram.GetUniformLocation("imageTexture");
     if (texLoc != -1) {
@@ -56,33 +81,7 @@ void Object::ShaderHandling()
     else {
         std::cout << "Warning: imageScale uniform not found in shader" << std::endl;
     }
-}
 
-void Object::VBO_VAO_EBO()
-{
-    VAO1.Bind();
-
-    VBO VBO1(vertices, sizeof(vertices));
-    VBO VBO2(texturePos, sizeof(texturePos));
-    EBO EBO1(indices, sizeof(indices));
-
-    VAO1.LinkVBO(VBO1, 0);
-    VAO1.LinkVBO(VBO2, 1);
-
-    EBO1.Bind();
-
-    VAO1.Unbind();
-    VBO1.Unbind();
-    EBO1.Unbind();
-
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR)
-        std::cout << "GL ERRORRRRRRR: " << err << std::endl;
-
-}
-
-void Object::mainLoopThings()
-{
     VAO1.Bind();
 }
 
