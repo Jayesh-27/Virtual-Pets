@@ -135,6 +135,7 @@
     <ClCompile Include="Source Files\shaderClass.cpp" />
     <ClCompile Include="Source Files\VAO.cpp" />
     <ClCompile Include="Source Files\VBO.cpp" />
+    <ClCompile Include="windowHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources Files\default.frag" />
@@ -145,6 +146,8 @@
     <ClInclude Include="Resources Files\shaderClass.h" />
     <ClInclude Include="Resources Files\VAO.h" />
     <ClInclude Include="Resources Files\VBO.h" />
+    <ClInclude Include="textures.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

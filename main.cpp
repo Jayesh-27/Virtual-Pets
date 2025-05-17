@@ -7,33 +7,15 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
+#include "Window.h"
 
 int main()
 {
-    // Initialize GLFW
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW\n";
+    Window window;
+    if (window.InitializeWindow() != 0) {
+        std::cerr << "Window initialization failed\n";
         return -1;
     }
-
-    // Configure GLFW
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
-    glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
-
-    // Create window
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Transparent Image Window", NULL, NULL);
-    if (!window) {
-        std::cerr << "Failed to create GLFW window\n";
-        glfwTerminate();
-        return -1;
-    }
-
-    glfwMakeContextCurrent(window);
 
     // Load OpenGL functions
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -121,8 +103,11 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    // Bind texture to texture unit 0
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
     // Main rendering loop
-    while (!glfwWindowShouldClose(window))
+    while (!window.WindowShouldClose())
     {
         // Clear the screen with transparent black
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -131,9 +116,7 @@ int main()
         // Use shader program
         shaderProgram.Activate();
 
-        // Bind texture to texture unit 0
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        
 
         // Set uniforms
         GLint texLoc = shaderProgram.GetUniformLocation("imageTexture");
@@ -174,7 +157,7 @@ int main()
         }
 
         // Swap buffers and poll events
-        glfwSwapBuffers(window);
+        window.swapBuffer();
         glfwPollEvents();
     }
 
@@ -185,8 +168,7 @@ int main()
     shaderProgram.Delete();
     glDeleteTextures(1, &texture);
 
-    glfwDestroyWindow(window);
+    window.DestroyWindow();
     glfwTerminate();
-
     return 0;
 }
