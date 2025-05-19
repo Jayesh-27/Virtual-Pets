@@ -50,7 +50,6 @@ int main()
                 btemp1 = true;
         }
 
-
         if (btemp2)
         {
             temp2 -= 0.001f;
