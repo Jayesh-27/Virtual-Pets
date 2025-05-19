@@ -1,9 +1,13 @@
 ﻿#include "window.h"
 #include "textures.h"
 #include "gameobject.h"
+#include <vector>
 
 int main()
 {
+    int N = 3;
+    std::vector<Object*> objects;    
+
     //std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     Window window;
 
@@ -15,7 +19,12 @@ int main()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    Object object1;
+    for (int i = 0; i < N; i++)
+    {
+        objects.push_back(new Object);
+    }
+
+    //Object object1;
     textures texture;
 
     // Main rendering loop
@@ -29,11 +38,23 @@ int main()
 
 
 
-
+        for (int i = 0; i < N; i++)
+        {
+            if (i == 1)
+            {
+                objects[i]->transform.position = Vector3(1.0f, 1.0f, 0.0f);
+                objects[i]->transform.scale = Vector3(1.0f, 1.0f, 0.0f);
+                objects[i]->Render();
+                continue;
+            }
+            objects[i]->transform.position = Vector3(0.0f, 0.0f, 0.0f);
+            objects[i]->transform.scale = Vector3(1.0f, 1.0f, 0.0f);
+            objects[i]->Render();
+        }
         
-        object1.transform.position =  Vector3(0.0f, 0.0f, 0.0f);
-        object1.transform.scale =  Vector3(1.0f, 1.0f, 0.0f);
-        object1.Render();
+        //object1.transform.position =  Vector3(0.0f, 0.0f, 0.0f);
+        //object1.transform.scale =  Vector3(1.0f, 1.0f, 0.0f);
+        //object1.Render();
 
 
 
@@ -45,7 +66,11 @@ int main()
     texture.deleteTextures();  
 
     window.DestroyWindow();
-    object1.DeleteObject();
+    for (int i = 0; i < N; i++)
+    {
+        objects[i]->DeleteObject();
+    }
+    //object1.DeleteObject();
     glfwTerminate();
     return 0;
 }
