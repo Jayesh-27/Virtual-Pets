@@ -8,13 +8,17 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "EBO.h"
+#include "Transform.h"
+
+//#include "saman.h"
 class Object {
 public:
+    Transform transform;
     Object();
     void ShaderHandling();
     void VBO_VAO_EBO();
-    void mainLoopThings();
-    void afterMainLoopThings();
+    void Render();
+    void afterRender();
 
     static float vertices[];
     static float texturePos[];

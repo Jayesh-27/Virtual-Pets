@@ -11,6 +11,7 @@ public:
     unsigned char* data;
     int imgWidth, imgHeight, nrChannels;
     GLuint texture;
+    textures();
 
     void deleteTextures();
     

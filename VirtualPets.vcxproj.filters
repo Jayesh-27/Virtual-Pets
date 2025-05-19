@@ -73,5 +73,11 @@
     <ClInclude Include="GameObject.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

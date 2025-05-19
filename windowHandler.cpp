@@ -1,7 +1,3 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <iostream>
-
 #include "Window.h"
 
 
@@ -11,6 +7,7 @@ Window::Window()
     if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
         glfwTerminate();
+        return;
     }
 
     // Configure GLFW
@@ -37,13 +34,12 @@ int Window::CreateWindow()
         glfwTerminate();
         return -1;  
     }
+    else
+    {
+        std::cout << "Window Created Successfully\n";
+    }
 
     glfwMakeContextCurrent(window);
-
-    // Configure OpenGL for transparency
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     return 0;
 }
 

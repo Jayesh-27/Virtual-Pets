@@ -1,5 +1,5 @@
 #include <GameObject.h>
-
+#include <Transform.h>
 
 // Define vertices for a textured quad
 float Object::vertices[] = {
@@ -46,15 +46,16 @@ void Object::VBO_VAO_EBO()
 
     VAO1.Unbind();
     VBO1.Unbind();
+    VBO2.Unbind();
     EBO1.Unbind();
 
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR)
         std::cout << "GL ERRORRRRRRR: " << err << std::endl;
-
+    std::cout << "Object Created Successfully\n";
 }
 
-void Object::mainLoopThings()
+void Object::Render()
 {
     shaderProgram.Activate();
 
@@ -68,7 +69,7 @@ void Object::mainLoopThings()
 
     GLint posLoc = shaderProgram.GetUniformLocation("imagePosition");
     if (posLoc != -1) {
-        glUniform2f(posLoc, 0.0f, 0.0f);
+        glUniform2f(posLoc, transform.position.x, transform.position.y);
     }
     else {
         std::cout << "Warning: imagePosition uniform not found in shader" << std::endl;
@@ -81,11 +82,12 @@ void Object::mainLoopThings()
     else {
         std::cout << "Warning: imageScale uniform not found in shader" << std::endl;
     }
-
     VAO1.Bind();
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    VAO1.Unbind();
 }
 
-void Object::afterMainLoopThings()
+void Object::afterRender()
 {
     VAO1.Delete();
     VBO1.Delete();

@@ -10,6 +10,7 @@ uniform vec2 imageScale;
 void main()
 {
     vec2 scaledPos = aPos * imageScale + imagePosition;
+
     gl_Position = vec4(scaledPos, 0.0, 1.0);
     TexCoord = aTexCoord;
 }
