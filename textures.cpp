@@ -7,6 +7,7 @@ textures::textures()
     if (!data) {
         std::cerr << "Failed to load image\n";
         glfwTerminate();
+        return;
     }
 
     std::cout << "Image loaded: " << imgWidth << "x" << imgHeight << " with " << nrChannels << " channels" << std::endl;

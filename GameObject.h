@@ -10,7 +10,6 @@
 #include "EBO.h"
 #include "Transform.h"
 
-//#include "saman.h"
 class Object {
 public:
     Transform transform;
@@ -18,7 +17,7 @@ public:
     void ShaderHandling();
     void VBO_VAO_EBO();
     void Render();
-    void afterRender();
+    void DeleteObject();
 
     static float vertices[];
     static float texturePos[];

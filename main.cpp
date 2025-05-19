@@ -16,61 +16,36 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     Object object1;
-    Object object2;
     textures texture;
-    float temp1 = 0.0f;
-    bool btemp1 = false;
-    float temp2 = 1.0f;
-    bool btemp2 = false;
 
     // Main rendering loop
     while (!window.WindowShouldClose())
     {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        glClear(GL_COLOR_BUFFER_BIT);        
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture.texture);
+
+
+
+
         
-        object1.transform.position.x = temp1;
-        object1.transform.position.y = 0.0f;
+        object1.transform.position =  Vector3(0.0f, 0.0f, 0.0f);
+        object1.transform.scale =  Vector3(1.0f, 1.0f, 0.0f);
         object1.Render();
 
-        object2.transform.position.x = temp2;
-        object2.transform.position.y = 0.0f;
-        object2.Render();
 
-        if (btemp1)
-        {
-            temp1 -= 0.001f;
-            if (temp1 <= 0.0f)
-                btemp1 = false;
-        }
-        else
-        {
-            temp1 += 0.001f;
-            if (temp1 >= 1.0f)
-                btemp1 = true;
-        }
 
-        if (btemp2)
-        {
-            temp2 -= 0.001f;
-            if (temp2 <= 0.0f)
-                btemp2 = false;
-        }
-        else
-        {
-            temp2 += 0.001f;
-            if (temp2 >= 1.0f)
-                btemp2 = true;
-        }
 
-        std::cout << "temp1 is " << temp1 << " and temp2 is " << temp2 << std::endl;
+
         window.swapBuffer();
         glfwPollEvents();
     }
     texture.deleteTextures();  
 
     window.DestroyWindow();
-    object2.afterRender();
+    object1.DeleteObject();
     glfwTerminate();
     return 0;
 }

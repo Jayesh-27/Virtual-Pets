@@ -6,6 +6,7 @@ class Transform
 {
 public:
 	Vector3 position;
+	Vector3 scale;
 };
 
 #endif

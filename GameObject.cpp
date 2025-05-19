@@ -77,7 +77,7 @@ void Object::Render()
 
     GLint scaleLoc = shaderProgram.GetUniformLocation("imageScale");
     if (scaleLoc != -1) {
-        glUniform2f(scaleLoc, 1.0f, 1.0f);
+        glUniform2f(scaleLoc, transform.scale.x, transform.scale.y);
     }
     else {
         std::cout << "Warning: imageScale uniform not found in shader" << std::endl;
@@ -87,7 +87,7 @@ void Object::Render()
     VAO1.Unbind();
 }
 
-void Object::afterRender()
+void Object::DeleteObject()
 {
     VAO1.Delete();
     VBO1.Delete();

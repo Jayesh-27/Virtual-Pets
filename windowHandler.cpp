@@ -27,8 +27,11 @@ Window::Window()
 
 int Window::CreateWindow()
 {
+    GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
+
     // Create window
-    window = glfwCreateWindow(800, 600, "Transparent Image Window", NULL, NULL);
+    window = glfwCreateWindow(mode->width - 2, mode->height - 2, "Transparent Image Window", NULL, NULL);
     if (!window) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();
@@ -38,6 +41,10 @@ int Window::CreateWindow()
     {
         std::cout << "Window Created Successfully\n";
     }
+
+    int xPos = (mode->width - (mode->width - 2)) / 2;
+    int yPos = (mode->height - (mode->height - 2)) / 2;
+    glfwSetWindowPos(window, xPos, yPos);
 
     glfwMakeContextCurrent(window);
     return 0;
