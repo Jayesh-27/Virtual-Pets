@@ -4,11 +4,10 @@
 #include <vector>
 
 int main()
-{
+{    
     int N = 3;
     std::vector<Object*> objects;    
 
-    //std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     Window window;
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -24,7 +23,6 @@ int main()
         objects.push_back(new Object);
     }
 
-    //Object object1;
     textures texture;
 
     // Main rendering loop
@@ -35,7 +33,6 @@ int main()
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.texture);
-
 
 
         for (int i = 0; i < N; i++)
@@ -51,12 +48,6 @@ int main()
             objects[i]->transform.scale = Vector3(1.0f, 1.0f, 0.0f);
             objects[i]->Render();
         }
-        
-        //object1.transform.position =  Vector3(0.0f, 0.0f, 0.0f);
-        //object1.transform.scale =  Vector3(1.0f, 1.0f, 0.0f);
-        //object1.Render();
-
-
 
 
 
@@ -70,7 +61,6 @@ int main()
     {
         objects[i]->DeleteObject();
     }
-    //object1.DeleteObject();
     glfwTerminate();
     return 0;
 }
