@@ -9,6 +9,7 @@
 #include "VBO.h"
 #include "EBO.h"
 #include "Transform.h"
+#include "Animation.h"
 
 class Object {
 public:
@@ -28,6 +29,9 @@ public:
     VBO VBO1;
     VBO VBO2;
     EBO EBO1;
+
+    //Animation
+    Animation Animation;    
 };
 
 #endif

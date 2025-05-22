@@ -1,6 +1,5 @@
 #include <GameObject.h>
 #include <Transform.h>
-
 // Define vertices for a textured quad
 float Object::vertices[] = {
     // positions   // texture coords
@@ -20,7 +19,7 @@ unsigned int Object::indices[] = {
     2, 3, 0   // second triangle
 };
 
-Object::Object() {
+Object::Object() : Animation(this) {
     Object::ShaderHandling();
     Object::VBO_VAO_EBO();
 };

@@ -1,11 +1,11 @@
-﻿#include "window.h"
-#include "textures.h"
-#include "gameobject.h"
+﻿#include "Window.h"
+#include "Textures.h"
+#include "Gameobject.h"
 #include <vector>
 
 int main()
 {    
-    int N = 3;
+    int N = 1;
     std::vector<Object*> objects;    
 
     Window window;
@@ -20,7 +20,9 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
+        std::cout << "\n\nObject: " << i << "\n";
         objects.push_back(new Object);
+        
     }
 
     textures texture;
@@ -34,19 +36,10 @@ int main()
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.texture);
 
-
         for (int i = 0; i < N; i++)
         {
-            if (i == 1)
-            {
-                objects[i]->transform.position = Vector3(1.0f, 1.0f, 0.0f);
-                objects[i]->transform.scale = Vector3(1.0f, 1.0f, 0.0f);
-                objects[i]->Render();
-                continue;
-            }
-            objects[i]->transform.position = Vector3(0.0f, 0.0f, 0.0f);
-            objects[i]->transform.scale = Vector3(1.0f, 1.0f, 0.0f);
             objects[i]->Render();
+            objects[i]->Animation.BackandForth();
         }
 
 

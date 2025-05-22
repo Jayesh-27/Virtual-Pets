@@ -1,6 +1,5 @@
 #include "Window.h"
 
-
 Window::Window()
 {
     // Initialize GLFW

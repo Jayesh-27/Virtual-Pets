@@ -42,6 +42,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources Files\default.frag">
@@ -76,7 +79,10 @@
     <ClInclude Include="Transform.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="structs.h">
+    <ClInclude Include="Vector.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

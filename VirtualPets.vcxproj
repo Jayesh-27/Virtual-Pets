@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source Files\EBO.cpp" />
@@ -145,12 +146,13 @@
     <None Include="Resources Files\default.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Resources Files\EBO.h" />
     <ClInclude Include="Resources Files\shaderClass.h" />
     <ClInclude Include="Resources Files\VAO.h" />
     <ClInclude Include="Resources Files\VBO.h" />
-    <ClInclude Include="structs.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="textures.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Window.h" />

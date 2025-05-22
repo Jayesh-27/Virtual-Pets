@@ -1,13 +1,5 @@
-﻿  GameObject.cpp
+﻿  Animation.cpp
+  GameObject.cpp
   main.cpp
-  EBO.cpp
-  shaderClass.cpp
-  VAO.cpp
-  VBO.cpp
-  stb_image_impl.cpp
-  textures.cpp
-  windowHandler.cpp
   Generating Code...
   VirtualPets.vcxproj -> C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\x64\Debug\VirtualPets.exe
-  'pwsh.exe' is not recognized as an internal or external command,
-  operable program or batch file.
