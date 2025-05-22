@@ -5,7 +5,7 @@
 
 int main()
 {    
-    int N = 1;
+    int N = 2;
     std::vector<Object*> objects;    
 
     Window window;

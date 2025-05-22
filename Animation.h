@@ -12,8 +12,8 @@ public:
 	
 	void BackandForth();
 
-	float sPos, ePos;
-	bool inAnimation = false;
+	float targetPos = 0.0f;
+	bool isMoving = false;
 };
 
 #endif
