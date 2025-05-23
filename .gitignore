@@ -6,3 +6,4 @@ VirtualPets.vcxproj.filters
 VirtualPets.vcxproj.user
 VirtualPets.sln
 VirtualPets/
+.gitignore/
