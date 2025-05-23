@@ -21,7 +21,7 @@ Window::Window()
     if (CreateWindow() != 0) {
         std::cerr << "Window creation failed\n";
         glfwTerminate();
-    }
+    }    
 }
 
 int Window::CreateWindow()
@@ -47,6 +47,18 @@ int Window::CreateWindow()
 
     glfwMakeContextCurrent(window);
     return 0;
+}
+
+void Window::getCursorPosition()
+{
+    int width, height;
+    glfwGetWindowSize(window, &width, &height);
+
+    double xpos, ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+
+    ndcX = (xpos / width) * 2.0 - 1.0;
+    ndcY = 1.0 - (ypos / height) * 2.0;
 }
 
 void Window::DestroyWindow()

@@ -1,27 +1,22 @@
 #include "Animation.h"
 #include "GameObject.h"
+#include "Window.h"
 #include <random>
 
 
-float randomNumber()
+float randomNumber(float min, float max)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> distr(-1.0f, 1.0f);
-
-    float random_float = distr(gen);
-    std::cout << random_float << std::endl;
-    return random_float;
+    std::uniform_real_distribution<float> distr(min,max);
+    return distr(gen);
 }
 
 void Animation::BackandForth()
 {
-    const float speed = 0.0006f;
-    const float tolerance = 0.01f;
-
     if (!isMoving || std::abs(object->transform.position.x - targetPos) < tolerance)
     {
-        targetPos = randomNumber();
+        targetPos = randomNumber(-1.0f, 1.0f);
         isMoving = true;
     }
 
@@ -37,4 +32,33 @@ void Animation::BackandForth()
     {
         isMoving = false;
     }
+}
+
+void Animation::runFromCursor(float cursorX, float cursorY)
+{    
+    float objX = object->transform.position.x;
+
+    if (std::abs(objX - cursorX) < runRange)
+    {
+        if (objX < cursorX) 
+            targetPos = randomNumber(-1.0f, std::min(cursorX - runRange, 0.98f));
+        else                
+            targetPos = randomNumber(std::max(cursorX + runRange, -0.98f), 1.0f);
+
+        isMoving = true;
+    }
+    else if (!isMoving || std::abs(objX - targetPos) < tolerance)
+    {
+        targetPos = randomNumber(-0.98f, 0.98f);
+        isMoving = true;
+    }
+
+    if (objX < targetPos - tolerance)
+        object->transform.position.x += speed;
+    else if (objX > targetPos + tolerance)
+        object->transform.position.x -= speed;
+    else
+        isMoving = false;
+
+    std::cout << targetPos << std::endl;
 }

@@ -14,5 +14,8 @@ public:
     void DestroyWindow();
     bool WindowShouldClose();
     void swapBuffer();
+    void getCursorPosition();
+
+    float ndcX, ndcY;
 };
 #endif

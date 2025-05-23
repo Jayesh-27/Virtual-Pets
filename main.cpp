@@ -5,7 +5,7 @@
 
 int main()
 {    
-    int N = 2;
+    int N = 1;
     std::vector<Object*> objects;    
 
     Window window;
@@ -27,6 +27,7 @@ int main()
 
     textures texture;
 
+
     // Main rendering loop
     while (!window.WindowShouldClose())
     {
@@ -39,8 +40,9 @@ int main()
         for (int i = 0; i < N; i++)
         {
             objects[i]->Render();
-            objects[i]->Animation.BackandForth();
-        }
+            window.getCursorPosition();
+            objects[i]->Animation.runFromCursor(window.ndcX, window.ndcY);
+        }       
 
 
 
