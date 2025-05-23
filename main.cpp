@@ -22,13 +22,18 @@ int main()
     {
         std::cout << "\n\nObject: " << i << "\n";
         objects.push_back(new Object);
-        
+
+        objects[i]->transform.position.x = 0.0f;
+        objects[i]->transform.position.y = -0.84f;
+        objects[i]->transform.scale = Vector3(0.25f, 0.4f, 1.0f);        
     }
 
     textures texture;
     texture.changeCursor(window.window);
 
-    bool cursorOnPenguin = false;
+    bool runAnimation = false;
+    bool wasMousePressed = false;
+    bool isMousePressed = false;
     // Main rendering loop
     while (!window.WindowShouldClose())
     {
@@ -42,37 +47,32 @@ int main()
         if ((window.ndcX >= objects[0]->transform.position.x - 0.09f) &&
             (window.ndcX <= objects[0]->transform.position.x + 0.08f) &&
             (window.ndcY >= objects[0]->transform.position.y - 0.17f) &&
-            (window.ndcY <= objects[0]->transform.position.y + 0.17f))
+            (window.ndcY <= objects[0]->transform.position.y + 0.17f) &&
+            !runAnimation)
         {
-            if (!cursorOnPenguin)
-            {
-                glfwSetWindowAttrib(window.window, GLFW_MOUSE_PASSTHROUGH, GLFW_FALSE);
-            }
-        }        
-        else
+            glfwSetWindowAttrib(window.window, GLFW_MOUSE_PASSTHROUGH, GLFW_FALSE);
+        }
+        else if(!runAnimation)
         {
-            if (!cursorOnPenguin)
-            {
-                glfwSetWindowAttrib(window.window, GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
-            }
+            glfwSetWindowAttrib(window.window, GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
         }
 
-        if ((glfwGetMouseButton(window.window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) &&
+        isMousePressed = glfwGetMouseButton(window.window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
+
+        if (isMousePressed && !wasMousePressed &&
             (window.ndcX >= objects[0]->transform.position.x - 0.09f) &&
             (window.ndcX <= objects[0]->transform.position.x + 0.08f) &&
             (window.ndcY >= objects[0]->transform.position.y - 0.17f) &&
-            (window.ndcY <= objects[0]->transform.position.y + 0.17f)) 
+            (window.ndcY <= objects[0]->transform.position.y + 0.17f))
         {
-            cursorOnPenguin = !cursorOnPenguin;
+            runAnimation = !runAnimation;
         }
+
+        wasMousePressed = isMousePressed;
 
         for (int i = 0; i < N; i++)
         {
-            //objects[i]->transform.position.x = 0.0f;
-            objects[i]->transform.position.y = -0.84f;
-            objects[i]->transform.scale = Vector3(0.25f, 0.4f, 1.0f);
-
-            if (cursorOnPenguin)
+            if (runAnimation)
             {
                 objects[i]->Animation.runFromCursor(window.ndcX, window.ndcY);
             }
@@ -82,9 +82,6 @@ int main()
             }
             objects[i]->Render();            
         }
-
-
-
 
 
         window.swapBuffer();
