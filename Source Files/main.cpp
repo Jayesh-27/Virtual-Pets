@@ -1,153 +1,99 @@
-﻿#include <iostream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
-const char* vertexShaderSource = R"(
-#version 460 core
-layout (location = 0) in vec2 aPos;
-layout (location = 1) in vec2 aTexCoord;
-
-out vec2 TexCoord;
-
-uniform vec2 imagePosition;
-uniform vec2 imageScale;
-
-void main()
-{
-    vec2 scaledPos = aPos * imageScale + imagePosition;
-    gl_Position = vec4(scaledPos, 0.0, 1.0);
-    TexCoord = aTexCoord;
-}
-)";
-
-const char* fragmentShaderSource = R"(
-#version 460 core
-out vec4 FragColor;
-in vec2 TexCoord;
-
-uniform sampler2D imageTexture;
-
-void main()
-{
-    FragColor = texture(imageTexture, TexCoord);
-}
-)";
+﻿#include "Window.h"
+#include "Textures.h"
+#include "Gameobject.h"
+#include <vector>
 
 int main()
-{
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
-    glfwWindowHint(GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
+{    
+    int N = 1;
+    std::vector<Object*> objects;    
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Transparent Image Window", NULL, NULL);
-    if (!window) { std::cerr << "Failed to create GLFW window\n"; glfwTerminate(); return -1; }
-    glfwMakeContextCurrent(window);
-    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    Window window;
 
-    int imgWidth, imgHeight, nrChannels;
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char* data = stbi_load("C:/Users/jayes/Desktop/Assests/pixelated-BallonwithPenguin.png", &imgWidth, &imgHeight, &nrChannels, 4);
-    if (!data) { std::cerr << "Failed to load image\n"; return -1; }
-
-    GLuint texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imgWidth, imgHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    stbi_image_free(data);
-
-    float vertices[] = {
-        -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.0f, 1.0f
-    };
-    unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0
-    };
-
-    GLuint VBO, VAO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cerr << "Failed to initialize GLAD\n";
+        glfwTerminate();
+    }
+    // Configure OpenGL for transparency
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    double xpos, ypos;
 
-    while (!glfwWindowShouldClose(window))
+    for (int i = 0; i < N; i++)
+    {
+        std::cout << "\n\nObject: " << i << "\n";
+        objects.push_back(new Object);
+
+        objects[i]->transform.position.x = 0.0f;
+        objects[i]->transform.position.y = -0.84f;
+        objects[i]->transform.scale = Vector3(0.25f, 0.4f, 1.0f);        
+    }
+
+    textures texture;
+    texture.changeCursor(window.window);
+
+    bool runAnimation = false;
+    bool wasMousePressed = false;
+    bool isMousePressed = false;
+    // Main rendering loop
+    while (!window.WindowShouldClose())
     {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glfwGetCursorPos(window, &xpos, &ypos);
-        //std::cout << "X = " << xpos << " & Y = " << ypos << "\n";
-        glUseProgram(shaderProgram);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture.texture);
 
-        if ((xpos >= 350 && xpos <= 420) && (ypos >= 420 && ypos <= 500))
-            glfwSetWindowAttrib(window, GLFW_MOUSE_PASSTHROUGH, GLFW_FALSE);
-        else
-            glfwSetWindowAttrib(window, GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
-
-        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-            std::cout << "Left Clicked \n";
+        window.getCursorPosition();
+        if ((window.ndcX >= objects[0]->transform.position.x - 0.09f) &&
+            (window.ndcX <= objects[0]->transform.position.x + 0.08f) &&
+            (window.ndcY >= objects[0]->transform.position.y - 0.17f) &&
+            (window.ndcY <= objects[0]->transform.position.y + 0.17f) &&
+            !runAnimation)
+        {
+            glfwSetWindowAttrib(window.window, GLFW_MOUSE_PASSTHROUGH, GLFW_FALSE);
+        }
+        else if(!runAnimation)
+        {
+            glfwSetWindowAttrib(window.window, GLFW_MOUSE_PASSTHROUGH, GLFW_TRUE);
         }
 
-        GLint posLoc = glGetUniformLocation(shaderProgram, "imagePosition");
-        GLint scaleLoc = glGetUniformLocation(shaderProgram, "imageScale");                
-        glUniform2f(scaleLoc, 1.5f, 1.5f);        
-        
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glBindVertexArray(VAO);
+        isMousePressed = glfwGetMouseButton(window.window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // x = 350 to 420
-        // y = 420 to 500
-        glfwSwapBuffers(window);
+        if (isMousePressed && !wasMousePressed &&
+            (window.ndcX >= objects[0]->transform.position.x - 0.09f) &&
+            (window.ndcX <= objects[0]->transform.position.x + 0.08f) &&
+            (window.ndcY >= objects[0]->transform.position.y - 0.17f) &&
+            (window.ndcY <= objects[0]->transform.position.y + 0.17f))
+        {
+            runAnimation = !runAnimation;
+        }
+
+        wasMousePressed = isMousePressed;
+
+        for (int i = 0; i < N; i++)
+        {
+            if (runAnimation)
+            {
+                objects[i]->Animation.runFromCursor(window.ndcX, window.ndcY);
+            }
+            else
+            {
+                objects[i]->Animation.BackandForth();
+            }
+            objects[i]->Render();            
+        }
+
+
+        window.swapBuffer();
         glfwPollEvents();
     }
+    texture.deleteTextures();  
 
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-    glDeleteTextures(1, &texture);
-    glDeleteProgram(shaderProgram);
-
-    glfwDestroyWindow(window);
+    window.DestroyWindow();
+    for (int i = 0; i < N; i++)
+    {
+        objects[i]->DeleteObject();
+    }
     glfwTerminate();
     return 0;
 }

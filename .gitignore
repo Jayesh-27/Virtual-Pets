@@ -1,1 +1,8 @@
 .vs/
+Libraries/
+x64/
+VirtualPets.vcxproj/
+VirtualPets.vcxproj.filters/
+VirtualPets.vcxproj.user/
+VirtualPets.sln/
+VirtualPets/
