@@ -1,5 +1,3 @@
-![Image 1](https://github.com/user-attachments/assets/30248f5d-7e8e-4871-adac-99ac9fc28395)# Virtual Pets 🐾
-
 A desktop virtual pet simulation built from scratch using **C++** and **OpenGL**.  
 Currently featuring an adorable **penguin** companion—with plans to add more pet assets in the future!
 
