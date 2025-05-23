@@ -3,7 +3,7 @@
 textures::textures()
 {
     stbi_set_flip_vertically_on_load(true);
-    unsigned char* data = stbi_load("C:/Users/jayes/Desktop/Assests/pixelated-BallonwithPenguin.png", &imgWidth, &imgHeight, &nrChannels, 4);
+    unsigned char* data = stbi_load("C:/Users/jayes/Desktop/Assests/Penguin.png", &imgWidth, &imgHeight, &nrChannels, 4);
     
     std::cout << "Image loaded: " << imgWidth << "x" << imgHeight << " with " << nrChannels << " channels" << std::endl;
     if (!data) {
@@ -11,6 +11,7 @@ textures::textures()
         glfwTerminate();
         return;
     }
+    std::cout << "Penguin Image size: " << imgWidth << "x" << imgHeight << std::endl;
 
     // Create texture
     glGenTextures(1, &texture);
@@ -40,6 +41,8 @@ textures::textures()
 
 void textures::changeCursor(GLFWwindow* window)
 {
+    stbi_set_flip_vertically_on_load(false);  
+
     cursorData = stbi_load("C:\\Users\\jayes\\Desktop\\Assests\\Fire.png", &imgWidth, &imgHeight, &nrChannels, 4);
 
     if (cursorData) {
@@ -48,24 +51,21 @@ void textures::changeCursor(GLFWwindow* window)
         image.height = imgHeight;
         image.pixels = cursorData;
 
-        cursor = glfwCreateCursor(&image, 0, 0); // Set hotspot to (0, 0)
+        cursor = glfwCreateCursor(&image, 0, 0);
         glfwSetCursor(window, cursor);
 
-        stbi_image_free(cursorData); // Free image after creating cursor
+        stbi_image_free(cursorData);
         std::cout << "Loaded cursor image.\n";
     }
     else {
         std::cout << "Failed to load cursor image.\n";
     }
+
     if (cursor) {
         glfwSetCursor(window, cursor);
-        std::cout << "Custom cursor set.\n";
     }
-    else {
-        std::cerr << "Failed to create GLFW cursor.\n";
-    }
-    std::cout << "Cursor image size: " << imgWidth << "x" << imgHeight << std::endl;
 }
+
 
 void textures::deleteTextures()
 {

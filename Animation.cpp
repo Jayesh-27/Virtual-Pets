@@ -59,6 +59,4 @@ void Animation::runFromCursor(float cursorX, float cursorY)
         object->transform.position.x -= speed;
     else
         isMoving = false;
-
-    std::cout << targetPos << std::endl;
 }
