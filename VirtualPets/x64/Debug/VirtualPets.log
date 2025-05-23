@@ -1,4 +1,4 @@
-﻿  Animation.cpp
-  main.cpp
-  Generating Code...
+﻿  windowHandler.cpp
+C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\windowHandler.cpp(60,33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\windowHandler.cpp(61,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   VirtualPets.vcxproj -> C:\Users\jayes\Desktop\Virtual Pets\VirtualPets\x64\Debug\VirtualPets.exe

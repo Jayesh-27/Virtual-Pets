@@ -9,12 +9,16 @@ class textures
 {
 public:
     unsigned char* data;
+    unsigned char* cursorData;
     int imgWidth, imgHeight, nrChannels;
     GLuint texture;
     textures();
 
-    void deleteTextures();
-    
+    void deleteTextures(); 
+
+    GLFWcursor* cursor;
+    void changeCursor(GLFWwindow* window);
+
 };
 
 #endif

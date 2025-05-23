@@ -26,7 +26,7 @@ int main()
     }
 
     textures texture;
-
+    texture.changeCursor(window.window);
 
     // Main rendering loop
     while (!window.WindowShouldClose())

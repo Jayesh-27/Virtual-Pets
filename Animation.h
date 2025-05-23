@@ -1,6 +1,7 @@
 #ifndef Animation_CLASS_H
 #define Animation_CLASS_H
 #include <string>
+#include <textures.h>
 
 class Object;
 
